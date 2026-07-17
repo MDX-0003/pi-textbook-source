@@ -58,9 +58,16 @@ export type AgentMessage =
   | AssistantMessage
   | ToolResultMessage;
 
+export interface ToolDefinition {
+  name: string;
+  description: string;
+  parameters: Record<string, unknown>;
+}
+
 export interface AgentContext {
   systemPrompt?: string;
   messages: AgentMessage[];
+  tools?: ToolDefinition[];
 }
 
 export type ModelEvent =
