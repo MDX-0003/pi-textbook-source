@@ -42,3 +42,11 @@
 - 先预测：为什么 tool result 不能伪装成 assistant 文本；为什么 `textOf()` 不能用于恢复消息。
 - 可给提示：先写三种消息的所有权差异，再实现有损文本投影。
 - 验收解释：provider payload、canonical IR、UI 投影是三个层次；只有中间层能成为长期事实。
+
+## Checkpoint 04 · ScriptedModel
+
+- 起点：消息与事件已经有类型，但没有确定性生产者。
+- 目标：让“模型下一回合做什么”成为可执行规格，而不是随机 mock 文本。
+- 先预测：一个含 text 和 toolCall 的最终消息会投影出哪些中间事件。
+- 可给提示：先写 final message → event trace 的纯投影，再处理脚本耗尽与预取消。
+- 验收解释：ScriptedModel 替代的是外部不确定性，不替代 Model 协议本身。
