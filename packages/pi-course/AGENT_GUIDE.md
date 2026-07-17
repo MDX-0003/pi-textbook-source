@@ -34,3 +34,11 @@
 - 先预测：事件先到与 iterator 先等待时，各由 queue 还是 waiter 接住。
 - 可给提示：先画 `queue / waiting / done` 三个状态容器，再写 `push()`；不要先粘贴完整类。
 - 验收解释：唯一终态负责解析 result，终态之后的 push 不得制造第二个事实。
+
+## Checkpoint 03 · Canonical message IR
+
+- 起点：通用流还不知道里面传什么。
+- 目标：定义 user / assistant / toolResult、content blocks、五种 stop reason 与模型事件。
+- 先预测：为什么 tool result 不能伪装成 assistant 文本；为什么 `textOf()` 不能用于恢复消息。
+- 可给提示：先写三种消息的所有权差异，再实现有损文本投影。
+- 验收解释：provider payload、canonical IR、UI 投影是三个层次；只有中间层能成为长期事实。
