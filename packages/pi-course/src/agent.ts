@@ -16,6 +16,7 @@ export interface AgentOptions {
   model: Model;
   tools: ToolRegistry;
   toolExecutor?: ToolExecutor;
+  initialMessages?: readonly AgentMessage[];
   systemPrompt?: string;
   maxSteps?: number;
 }
@@ -115,20 +116,22 @@ interface ActiveRun {
 }
 
 export class Agent {
-  private state: AgentState = {
-    status: "idle",
-    messages: [],
-    streamingText: "",
-    pendingToolCallIds: [],
-    diagnostics: [],
-  };
+  private state: AgentState;
   private readonly subscribers = new Set<(event: AgentEvent) => void>();
   private readonly pendingEvents: AgentEvent[] = [];
   private dispatchingEvents = false;
   private activeRun?: ActiveRun;
   private nextRunId = 1;
 
-  constructor(private readonly options: AgentOptions) {}
+  constructor(private readonly options: AgentOptions) {
+    this.state = {
+      status: "idle",
+      messages: [...clone(options.initialMessages ?? [])],
+      streamingText: "",
+      pendingToolCallIds: [],
+      diagnostics: [],
+    };
+  }
 
   getState(): AgentState {
     return clone(this.state);
