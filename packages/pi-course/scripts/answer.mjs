@@ -41,7 +41,7 @@ if (!row) {
 }
 
 const output = process.argv[3]
-  ? path.resolve(process.argv[3])
+  ? path.resolve(repoRoot, process.argv[3])
   : path.resolve(repoRoot, "..", `pi-answer-${requested}`);
 
 if (existsSync(output)) {
